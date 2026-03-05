@@ -13,52 +13,79 @@ struct BookDetailsView: View {
 
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 16) {
-                ZStack {
-                    RoundedRectangle(cornerRadius: 20)
-                        .fill(Color(.systemGray6))
-                        .frame(height: 180)
-                    Image(systemName: book.systemImageName)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 80, height: 80)
-                        .foregroundStyle(.secondary)
-                }
-                .padding(.top)
 
-                Text(book.title)
-                    .font(.title.bold())
-                Text(book.author)
+            VStack(spacing: 24) {
+
+                
+                ZStack {
+                    RoundedRectangle(cornerRadius: 18)
+                        .fill(Color(.systemGray5))
+                        .frame(width: 160, height: 220)
+
+                    Image(systemName: book.systemImageName)
+                        .font(.system(size: 60))
+                        .foregroundStyle(.primary)
+                }
+                .padding(.top, 20)
+
+                
+                VStack(spacing: 6) {
+
+                    Text(book.title)
+                        .font(.title2.bold())
+                        .multilineTextAlignment(.center)
+
+                    Text(book.author)
+                        .foregroundStyle(.secondary)
+
+                    HStack(spacing: 6) {
+                        Image(systemName: "doc.text")
+                            .font(.subheadline)
+
+                        Text("\(book.pages) pages")
+                            .font(.subheadline)
+                    }
                     .foregroundStyle(.secondary)
 
-                HStack(spacing: 8) {
-                    Image(systemName: "book")
-                    Text("\(book.pages) pages")
-                        .foregroundStyle(.secondary)
                 }
+                .multilineTextAlignment(.center)
 
-                Button(action: { appModel.toggleSave(book) }) {
-                    Text(appModel.isSaved(book) ? "Saved" : "Save")
-                        .fontWeight(.semibold)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color.black)
-                        .foregroundStyle(.white)
-                        .clipShape(RoundedRectangle(cornerRadius: 14))
+                
+                Button {
+                    appModel.toggleSave(book)
+                } label: {
+
+                    HStack(spacing: 8) {
+
+                        Image(systemName:
+                                appModel.isSaved(book)
+                                ? "bookmark.fill"
+                                : "bookmark")
+
+                        Text(appModel.isSaved(book) ? "Saved" : "Save")
+                    }
+                    .fontWeight(.semibold)
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(Color.black)
+                    .foregroundStyle(.white)
+                    .clipShape(RoundedRectangle(cornerRadius: 16))
                 }
-                .padding(.top, 8)
+                .padding(.horizontal)
 
+                
                 VStack(alignment: .leading, spacing: 8) {
+
                     Text("Synopsis")
                         .font(.headline)
+
                     Text(book.synopsis)
                         .foregroundStyle(.secondary)
                 }
-                .padding(.top)
+                .padding(.horizontal)
 
-                Spacer(minLength: 20)
+                Spacer(minLength: 40)
             }
-            .padding(.horizontal)
         }
         .navigationTitle("")
         .navigationBarTitleDisplayMode(.inline)
@@ -66,6 +93,8 @@ struct BookDetailsView: View {
 }
 
 #Preview {
-    NavigationStack { BookDetailsView(book: .samples[0]) }
-        .environmentObject(AppModel())
+    NavigationStack {
+        BookDetailsView(book: .samples[0])
+            .environmentObject(AppModel())
+    }
 }

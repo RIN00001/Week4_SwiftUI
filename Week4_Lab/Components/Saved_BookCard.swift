@@ -8,37 +8,53 @@
 import SwiftUI
 
 struct Saved_BookCard: View {
+
     let book: Book
     var showDelete: Bool = false
     var onDelete: (() -> Void)? = nil
 
     var body: some View {
-        HStack(spacing: 12) {
+
+        HStack(spacing: 16) {
+
             ZStack {
                 RoundedRectangle(cornerRadius: 12)
                     .fill(Color(.systemGray6))
-                    .frame(width: 56, height: 56)
+                    .frame(width: 56, height: 76)
+
                 Image(systemName: book.systemImageName)
+                    .font(.system(size: 20))
                     .foregroundStyle(.secondary)
             }
+
             VStack(alignment: .leading, spacing: 4) {
-                Text(book.title).font(.subheadline).lineLimit(1)
-                Text(book.author).foregroundStyle(.secondary).font(.caption)
+
+                Text(book.title)
+                    .font(.headline)
+                    .lineLimit(2)
+
+                Text(book.author)
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
             }
+
             Spacer()
+
             if showDelete, let onDelete {
+
                 Button(action: onDelete) {
                     Image(systemName: "trash")
+                        .font(.system(size: 14, weight: .semibold))
                         .foregroundStyle(.red)
-                        .padding(8)
-                        .background(Color(.systemRed).opacity(0.15))
-                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                        .frame(width: 36, height: 36)
+                        .background(Color.red.opacity(0.15))
+                        .clipShape(Circle())
                 }
                 .buttonStyle(.plain)
             }
         }
-        .padding(12)
-        .background(Color(.systemGray6))
+        .padding(14)
+        .background(Color(.systemBackground))  
         .clipShape(RoundedRectangle(cornerRadius: 16))
     }
 }

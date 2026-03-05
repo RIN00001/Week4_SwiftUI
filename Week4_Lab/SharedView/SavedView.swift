@@ -26,15 +26,19 @@ struct SavedView: View {
                     List {
                         ForEach(appModel.saved) { book in
                             NavigationLink(destination: BookDetailsView(book: book)) {
+
                                 Saved_BookCard(book: book, showDelete: true) {
                                     appModel.removeSaved(book)
                                 }
+                                .padding(.vertical, 6)
                             }
-                        }
-                        .onDelete { indexSet in
-                            for index in indexSet { appModel.removeSaved(appModel.saved[index]) }
+                            .listRowSeparator(.hidden)
+                            .listRowInsets(EdgeInsets())
+                            .padding(.horizontal)
                         }
                     }
+                    .listStyle(.plain)
+                    .scrollContentBackground(.hidden)
                     .listStyle(.plain)
                 }
             }

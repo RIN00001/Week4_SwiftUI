@@ -27,8 +27,9 @@ struct ProfileView: View {
                         .font(.title3.bold())
 
                     Text("john.doe@example.com")
-                        .foregroundColor(.gray)
-
+                        .foregroundStyle(.secondary)
+                        .tint(.secondary)
+                    
                     Text("Avid reader, tech enthusiast, and minimalist.")
                         .multilineTextAlignment(.center)
                         .foregroundStyle(.secondary)
